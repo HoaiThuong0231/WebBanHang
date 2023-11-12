@@ -1,24 +1,43 @@
-# Composer files
-composer.phar
-vendor/
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
 
-# Local configs
-config/autoload/*.local.php
+# Visual Studio Code
+.vscode/
 
-# Binary gettext files
-*.mo
+# Rider
+.idea/
 
-# Data
-data/logs/
-data/cache/
-data/sessions/
-data/tmp/
-temp/
+# Visual Studio
+.vs/
 
-#Doctrine 2
-data/DoctrineORMModule/Proxy/
-data/DoctrineORMModule/cache/
+# Fleet
+.fleet/
 
-# Legacy ZF1
-demos/
-extras/documentation
+# Code Rush
+.cr/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
