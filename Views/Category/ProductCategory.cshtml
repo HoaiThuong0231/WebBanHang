@@ -1,0 +1,277 @@
+﻿
+
+<h2>ProductCategory</h2>
+<br />
+<br />
+<br />
+<br />
+@*<script>
+        var selectedPriceRanges = [];
+    </script>
+
+    <script>
+        function handleCheck(checkbox) {
+            var checkboxes = document.getElementsByClassName("custom-control-input");
+
+            // Xóa trạng thái chọn của các checkbox khác
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i] !== checkbox) {
+                    checkboxes[i].checked = false;
+                    checkboxes[i].parentNode.classList.remove("selected");
+                }
+            }
+
+            // Thay đổi màu sắc của checkbox được chọn
+            if (checkbox.checked) {
+                checkbox.parentNode.classList.add("selected");
+                selectedPriceRanges.push(checkbox.value);
+            } else {
+                checkbox.parentNode.classList.remove("selected");
+                var index = selectedPriceRanges.indexOf(checkbox.value);
+                if (index !== -1) {
+                    selectedPriceRanges.splice(index, 1);
+                }
+            }
+
+            // Gọi hàm để lọc sản phẩm theo giá
+            filterProductsByPrice();
+        }
+
+        function filterProductsByPrice() {
+            var products = document.querySelectorAll(".card-product-list");
+
+            products.forEach(function (product) {
+                var priceElement = product.querySelector(".price");
+                var price = parseFloat(priceElement.innerText);
+
+                if (isPriceInRange(price)) {
+                    product.style.display = "block";
+                } else {
+                    product.style.display = "none";
+                }
+            });
+        }
+
+        function isPriceInRange(price) {
+            if (selectedPriceRanges.length === 0) {
+                return true;
+            }
+
+            for (var i = 0; i < selectedPriceRanges.length; i++) {
+                var range = selectedPriceRanges[i];
+
+                if (range === "0-1000" && price >= 0 && price < 1000) {
+                    return true;
+                } else if (range === "1000-2000" && price >= 1000 && price < 2000) {
+                    return true;
+                } else if (range === "2000+" && price >= 2000) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    </script>*@
+
+<script>
+    function handleCheckbox(checkbox) {
+        var checkboxes = document.getElementsByName("color");
+
+        // Loại bỏ trạng thái chọn của các ô checkbox khác
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i] !== checkbox) {
+                checkboxes[i].checked = false;
+            }
+        }
+    }
+</script>
+
+
+
+
+<section class="section-content padding-y">
+    <div class="container">
+
+
+        <div class="row">
+            <aside class="col-md-2">
+
+                <article class="filter-group">
+                    <h6 class="title">
+                        <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_1">Thương hiệu </a>
+                    </h6>
+                    <div class="filter-content collapse show" id="collapse_1">
+                        <div class="inner">
+                            <ul class="list-menu">
+                                <li><a href="#">Sam Sung  </a></li>
+                                <li><a href="#">Iphone</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+
+
+                @*<article class="filter-group">
+                        <h6 class="title">
+                            <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_2">Giá </a>
+                        </h6>
+                        <div class="filter-content collapse show" id="collapse_2">
+                            <div class="inner">
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" value="3-5" onclick="handleCheck(this)">
+                                    <div class="custom-control-label">
+                                        &lt; 1000 $
+                                    </div>
+                                </label>
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" value="6-9" onclick="handleCheck(this)">
+                                    <div class="custom-control-label">
+                                        1000 -> 2000 $
+                                    </div>
+                                </label>
+                                <label class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" value="10+" onclick="handleCheck(this)">
+                                    <div class="custom-control-label">
+                                        Trên 2000 $
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </article>*@
+
+
+
+                <article class="filter-group">
+                    <h6 class="title">
+                        <a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#collapse_4"> Màu </a>
+                    </h6>
+                    <div class="filter-content collapse show" id="collapse_4">
+                        <div class="inner">
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" value="0-1000" onclick="handleCheck(this)">
+                                <div class="custom-control-label">
+                                    0 - 1000 $
+                                </div>
+                            </label>
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" value="1000-2000" onclick="handleCheck(this)">
+                                <div class="custom-control-label">
+                                    1000 - 2000 $
+                                </div>
+                            </label>
+                            <label class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" value="2000+" onclick="handleCheck(this)">
+                                <div class="custom-control-label">
+                                    Trên 2000 $
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </article>
+
+
+            </aside>
+            <main class="col-md-10">
+
+
+                <header class="mb-3">
+                    <div class="form-inline">
+                        <strong class="mr-md-auto">Các Sản phẩm </strong>
+                        <select class="mr-2 form-control">
+                            <option>Sản phẩm mới nhất</option>
+                            <option>Xu hướng</option>
+                            <option>Phổ biến nhất</option>
+
+                        </select>
+
+                    </div>
+                </header>
+
+                @foreach (var item in Model.Take(3))
+                {
+                    <article class="card card-product-list">
+                        <div class="row no-gutters">
+                            <aside class="col-md-3">
+                                <a href="@Url.Action("Detail", "Product", new { Id =item.Id })" class="img-wrap">
+                                    <span class="badge badge-danger"> NEW </span>
+                                    <img src="~/Content/images/product/@item.Avatar">
+                                </a>
+                            </aside> <!-- col.// -->
+                            <div class="col-md-6">
+                                <div class="info-main">
+                                    <a href="@Url.Action("Detail", "Product", new { Id =item.Id })" class="h5 title">@item.Name</a>
+                                    <div class="rating-wrap mb-2">
+                                        <ul class="rating-stars">
+                                            <li style="width:100%" class="stars-active">
+                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                            </li>
+                                        </ul>
+                                        <div class="label-rating">9/10</div>
+                                    </div>
+
+
+                                    <p>
+                                        @item.ShortDes
+                                    </p>
+                                    <p>
+                                        @item.Price
+                                    </p>
+                                </div>
+                            </div>
+                            <aside class="col-sm-3">
+                                <div class="info-aside">
+                                    <div class="price-wrap">
+                                        <span class="h5 price">@item.Price <sup>đ</sup></span>
+                                        <small class="text-muted">/sản phẩm</small>
+                                    </div>
+                                    <small class="text-warning">Phí vận chuyển</small>
+
+                                    <p class="mt-3">
+                                        <a href="#" class="btn btn-outline-primary"> <i class="fa fa-envelope"></i> Liên hệ với nhà cung cấp </a>
+                                        <a href="#" class="btn btn-light"><i class="fa fa-heart"></i> Lưu </a>
+                                    </p>
+
+
+
+                                </div>
+                            </aside>
+                        </div>
+                    </article>
+                }
+
+
+                <nav class="mb-4" aria-label="Page navigation sample">
+                    <ul class="pagination">
+                        <li class="page-item disabled"><a class="page-link" href="#">Trang trước</a></li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item"><a class="page-link" href="#">4</a></li>
+                        <li class="page-item"><a class="page-link" href="#">5</a></li>
+                        <li class="page-item"><a class="page-link" href="#">Sau</a></li>
+                    </ul>
+                </nav>
+
+
+                <div class="box text-center">
+                    <p>Bạn đã tìm thấy những gì bạn đang tìm kiếm?？</p>
+                    <a href="" class="btn btn-light">Yes</a>
+                    <a href="" class="btn btn-light">No</a>
+                </div>
+
+
+            </main> <!-- col.// -->
+
+        </div>
+
+    </div> <!-- container .//  -->
+</section>

@@ -1,0 +1,241 @@
+﻿﻿@model  WebsiteBanHang.Models.HomeModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>Index</h2>
+<br />
+<h2>Index</h2>
+<br />
+<br />
+
+
+<script>
+    var selectedPriceRanges = [];
+</script>
+
+<script>
+    function handleCheck(checkbox) {
+        var checkboxes = document.getElementsByClassName("custom-control-input");
+
+        // Xóa trạng thái chọn của các checkbox khác
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i] !== checkbox) {
+                checkboxes[i].checked = false;
+                checkboxes[i].parentNode.classList.remove("selected");
+            }
+        }
+
+        // Thay đổi màu sắc của checkbox được chọn
+        if (checkbox.checked) {
+            checkbox.parentNode.classList.add("selected");
+            selectedPriceRanges.push(checkbox.value);
+        } else {
+            checkbox.parentNode.classList.remove("selected");
+            var index = selectedPriceRanges.indexOf(checkbox.value);
+            if (index !== -1) {
+                selectedPriceRanges.splice(index, 1);
+            }
+        }
+
+        // Gọi hàm để lọc sản phẩm theo giá
+        filterProductsByPrice();
+    }
+
+    function filterProductsByPrice() {
+        var products = document.querySelectorAll(".card-product-list");
+
+        products.forEach(function (product) {
+            var priceElement = product.querySelector(".price");
+            var price = parseFloat(priceElement.innerText);
+
+            if (isPriceInRange(price)) {
+                product.style.display = "block";
+            } else {
+                product.style.display = "none";
+            }
+        });
+    }
+
+    function isPriceInRange(price) {
+        if (selectedPriceRanges.length === 0) {
+            return true;
+        }
+
+        for (var i = 0; i < selectedPriceRanges.length; i++) {
+            var range = selectedPriceRanges[i];
+
+            if (range === "0-1000" && price >= 0 && price < 1000) {
+                return true;
+            } else if (range === "1000-2000" && price >= 1000 && price < 2000) {
+                return true;
+            } else if (range === "2000+" && price >= 2000) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+</script>
+
+
+<script>
+    function handleCheckbox(checkbox) {
+        var checkboxes = document.getElementsByName("color");
+
+        // Loại bỏ trạng thái chọn của các ô checkbox khác
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i] !== checkbox) {
+                checkboxes[i].checked = false;
+            }
+        }
+    }
+</script>
+
+
+<div class="hero-slide owl-carousel site-blocks-cover">
+    @foreach (var item in Model.ListSlider)
+    {
+        <div class="container">
+            <div class="row align-items-center">
+                <a><img src="~/Content/images/slider/@item.Avatar" alt="Image" class="img-fluid"></a>
+            </div>
+        </div>
+    }
+</div>
+
+
+<div class="container">
+
+    <div class="row">
+        <div class=" col-md-3 ">
+            <nav class="nav-home-aside">
+                <a href="" class="btn btn-secondary btn-sm"> Danh mục sản phẩm </a><br />
+                <ul class="menu-category">
+                    @foreach (var item in Model.ListCategory.Take(4))
+                    {
+                        <li>
+
+                            @Html.ActionLink(item.Name, "ProductCategory", "Category", new { @Id = item.Id }, null)
+                        </li>
+                    }
+
+                </ul>
+            </nav>
+            <article class="filter-group">
+                <div class="filter-content collapse show" id="collapse_4">
+                    <form action="@Url.Action("FilterByPrice", "Home")" method="get">
+                        <input type="checkbox" name="priceRange" value="0-1000"> 0 - 1000<br>
+                        <input type="checkbox" name="priceRange" value="1000-2000"> 1000 - 2000<br>
+                        <input type="checkbox" name="priceRange" value="2000+"> Trên 2000<br>
+                        <input type="submit" value="Lọc">
+                    </form>
+                </div>
+            </article>
+
+
+
+
+
+        </div>
+        <div class=" col-md-9 ">
+            <div class="container">
+                <h2> Điện thoại  </h2><br />
+
+                <div class="row">
+                    @foreach (var item in Model.ListProduct.Where(p => p.TypeId == 2))
+                    {
+                        <div class=" col-md-3 ">
+                            <div class="course-1-item">
+                                <figure class="thumnail">
+                                    <a href="@Url.Action("Detail","Product",new {Id=item.Id })">
+                                        <img src="~/Content/images/product/@item.Avatar" alt="Image" class="img-fluid">
+                                    </a>
+                                    <div class="price">@item.Price $</div>
+                                    <div class="category"><h3>@item.Name</h3></div>
+                                </figure>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <h2> Tất cả sản phẩm  </h2><br />
+    <div class="row">
+        @foreach (var item in Model.ListProduct)
+        {
+            <div class=" col-md-3 ">
+                <div class="course-1-item">
+                    <figure class="thumnail">
+                        <a href="@Url.Action("Detail","Product",new {Id=item.Id })">
+                            <img src="~/Content/images/product/@item.Avatar" alt="Image" class="img-fluid">
+                        </a>
+                        <div class="price">@item.Price $</div>
+
+                        <div class="category"><h3>@item.Name</h3></div>
+                    </figure>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+<div class="container">
+    <h2> Điện thoại  </h2><br />
+    <div class="row">
+        @foreach (var item in Model.ListProduct.Where(p => p.TypeId == 2))
+        {
+            <div class=" col-md-3 ">
+                <div class="course-1-item">
+                    <figure class="thumnail">
+                        <a href="@Url.Action("Detail","Product",new {Id=item.Id })">
+                            <img src="~/Content/images/product/@item.Avatar" alt="Image" class="img-fluid">
+                        </a>
+                        <div class="price">@item.Price $</div>
+
+                        <div class="category"><h3>@item.Name</h3></div>
+                    </figure>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<div class="site-section">
+    <div class="container">
+        <h2> Laptop </h2> <br />
+        <div class="row">
+            @foreach (var item in Model.ListProduct.Where(p => p.TypeId == 1))
+            {
+                <div class=" col-md-3 ">
+                    <div class="course-1-item">
+                        <figure class="thumnail">
+                            <a href="@Url.Action("Detail","Product",new {Id=item.Id })">
+                                <img src="~/Content/images/product/@item.Avatar" alt="Image" class="img-fluid">
+                            </a>
+                            <div class="price">@item.Price $</div>
+                            <div class="category"><h3>@item.Name</h3></div>
+
+                            @*<a href="@Url.Action("Cart", "Cart")">
+                                    <i class="fas fa-shopping-cart"></i> View Cart
+                                </a>*@
+
+                        </figure>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

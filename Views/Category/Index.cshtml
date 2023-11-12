@@ -1,0 +1,31 @@
+﻿@inject WebBanHangContext _db
+@{
+    var categories = await _db.Category.ToListAsync();
+}
+<div class="custom-breadcrumns border-bottom">
+    <div class="container">
+        <a href="index.html">Home</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Login</span>
+    </div>
+</div>
+<div class="site-section">
+    <div class="top_nav">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 text-left border border-success">
+                    <h3 style="font-weight:bold">Category</h3>
+                    <div class="collapse show">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            @foreach (var category in categories)
+                            {
+                                <li><a href="" class="link-dark rounded" style="font-size:20px;">@category.Name</a></li>
+                            }
+                        </ul>
+                     </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>

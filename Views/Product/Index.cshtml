@@ -1,0 +1,97 @@
+﻿@model HomeModel
+@inject WebBanHangContext _db
+@{
+    Dictionary<string, string> setting = await _db.Setting.ToDictionaryAsync(x => x.Key, x => x.Value);
+    int totalProduct = Convert.ToInt32(ViewBag.TotalProduct);
+    int numpage = totalProduct / 10 + 1;
+}
+<div class="custom-breadcrumns border-bottom">
+    <div class="container">
+        <a href="index.html">Home</a>
+        <span class="mx-3 icon-keyboard_arrow_right"></span>
+        <span class="current">Courses</span>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            @foreach (var product in Model.ListProduct)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                <div class="course-1-item">
+                    <figure class="thumnail">
+                            <a href="@Url.Content("/ProductDetail/"+product.Id+"/"+product.Name.GenerateSlug())"><img src="@string.Concat("/images/",product.Avatar)" style="height:300px" alt="Image" class="img-fluid"></a>
+                        <div class="price">@product.Price.ToUSD()</div>
+                        <div class="category"><h3>@product.Name</h3></div>
+                    </figure>
+                    <div class="course-1-content pb-4">
+                        <h2>@product.Name</h2>
+                        <div class="rating text-center mb-3">
+                            @{
+                                var star = product.Review.Average(x => x.Star);
+                            }
+                            @switch (star)
+                            {
+                                case 1:
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2"></span>
+                                    <span class="icon-star2"></span>
+                                    <span class="icon-star2"></span>
+                                    <span class="icon-star2"></span>
+                                    break;
+                                case 2:
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2"></span>
+                                    <span class="icon-star2"></span>
+                                    <span class="icon-star2"></span>
+                                    break;
+                                case 3:
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2"></span>
+                                    <span class="icon-star2"></span>
+                                    break;
+                                case 4:
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2"></span>
+                                    break;
+                                case 5:
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    break;
+                                default:
+                                    <span class="icon-star2"></span>
+                                    <span class="icon-star2"></span>
+                                    <span class="icon-star2"></span>
+                                    <span class="icon-star2"></span>
+                                    <span class="icon-star2"></span>
+                                    break;
+                            }
+                        </div>
+                        <p class="desc mb-4">@product.ShortDes.</p>
+                        <p><a href="/Cart" class="btn btn-primary rounded-0 px-4">Add to cart</a></p>
+                    </div>
+                </div>
+                </div>
+            }
+
+        </div>
+        <div class="page-division">
+            <center>
+                @for (int i = 1; i <= numpage; i++)
+                {
+                    <a href="@Url.Content("/Product?page="+i)"><span class="badge bg-primary">@i</span></a>
+                }
+            </center>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿﻿@model  WebsiteBanHang.Models.HomeModel
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model.ListProduct)
+        {
+            <div class=" col-md-3 ">
+                <div class="course-1-item">
+                    <figure class="thumnail">
+                        <a href="@Url.Action("Detail","Product",new {Id=item.Id })">
+                            <img src="~/Content/images/product/@item.Avatar" alt="Image" class="img-fluid">
+                        </a>
+                        <div class="price">@item.Price</div>
+                        <div class="category"><h3>@item.Name</h3></div>
+                    </figure>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

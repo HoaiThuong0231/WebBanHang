@@ -1,0 +1,61 @@
+﻿@model List<Product>
+@{
+    int totalProduct = Convert.ToInt32(ViewBag.TotalProduct);
+    int numpage = totalProduct / 10 + 1;
+}
+@section css{
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="/admin/assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
+    <link rel="stylesheet" href="/admin/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
+    <link rel="stylesheet" href="/admin/assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.css" />
+}
+<h1>Product List</h1>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Stock</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td> <span class="fw-medium">@product.Id</span></td>
+                    <td> <span class="fw-medium">@product.Name</span></td>
+                    <td>@product.Price</td>
+                    <td>
+                        <img src="@Url.Content("/images/"+product.Avatar)" style="height:50px;width:50px" alt="Avatar" class="rounded-circle" />
+                    </td>
+                    <td><span class="badge bg-label-primary me-1">@product.Stock</span></td>
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical"></i></button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="@Url.Content("/Admin/Product/EditProduct/"+product.Id)"><i class="ti ti-pencil me-1"></i>Edit</a>
+                                <a class="dropdown-item" href="@Url.Content("/Admin/Product/DeleteProduct/"+product.Id)"><i class="ti ti-trash me-1"></i>Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="page-division">
+    <center>
+        @for (int i = 1; i <= numpage; i++)
+        {
+            <a href="@Url.Content("/Admin/Product?page="+i)"><span class="badge bg-primary">@i</span></a>
+        }
+    </center>
+</div>
+@section js{
+    <script src="/admin/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="/admin/assets/vendor/libs/swiper/swiper.js"></script>
+}

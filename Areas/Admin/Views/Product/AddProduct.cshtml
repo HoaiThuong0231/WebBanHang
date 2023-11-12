@@ -1,0 +1,50 @@
+﻿@model Product
+<form class="browser-default-validation col-md-6" method="post">
+    <div class="mb-3">
+        <label class="form-label">Product Name</label>
+        <input type="text" name="name" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-default-avatar">Avatar</label>
+        <input type="file" name="avatar" class="form-control" id="basic-default-avatar" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-default-price">Price</label>
+        <input type="number" name="price" id="basic-default-price" class="form-control" placeholder="Enter Email" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-default-category">Category</label>
+        <select class="form-select" name="category" id="basic-default-category" required>
+            <option value="">Select category</option>
+            <option value="usa">USA</option>
+            <option value="uk">UK</option>
+            <option value="france">France</option>
+            <option value="australia">Australia</option>
+            <option value="spain">Spain</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-default-brand">Brand</label>
+        <select class="form-select" name="brand" id="basic-default-brand" required>
+            <option value="">Select brand</option>
+            <option value="usa">USA</option>
+            <option value="uk">UK</option>
+            <option value="france">France</option>
+            <option value="australia">Australia</option>
+            <option value="spain">Spain</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-default-shortdes">Short Description</label>
+        <input type="text" name="shortdes" class="form-control flatpickr-validation" id="basic-default-shortdes" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="basic-default-fulldes">Full Description</label>
+        <textarea class="form-control" name="fulldes" id="basic-default-fulldes" name="basic-default-fulldes" rows="3" required></textarea>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
